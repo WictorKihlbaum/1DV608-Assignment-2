@@ -9,6 +9,8 @@
 class ServerTime {
 
     public static function getServerTime() {
+
+        date_default_timezone_set('Europe/Stockholm');
         return date("l") . ", the " . date("jS") . " of " . date("F Y") . ", The time is " . date("H:i:s");
     }
 }
