@@ -8,6 +8,6 @@ class DateTimeView {
 
 		$timeString = ServerTime::getServerTime();
 
-		return '<p>' . $timeString . '</p>';
+		return '<p>' . $timeString . "hej" . '</p>';
 	}
 }
