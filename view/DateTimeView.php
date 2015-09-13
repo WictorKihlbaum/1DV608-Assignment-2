@@ -1,11 +1,12 @@
 <?php
 
-class DateTimeView {
+require_once('model/ServerTime.php');
 
+class DateTimeView {
 
 	public function show() {
 
-		$timeString = 'TODO, Write servertime here... hej';
+		$timeString = ServerTime::getServerTime();
 
 		return '<p>' . $timeString . '</p>';
 	}
