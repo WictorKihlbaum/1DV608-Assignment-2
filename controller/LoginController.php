@@ -8,5 +8,15 @@
  */
 class LoginController {
 
+    private $loginView;
 
+    public function __construct($v) {
+
+        $this -> loginView = $v;
+    }
+
+    private function loginButtonIsPressed() {
+
+        echo "test";
+    }
 }
