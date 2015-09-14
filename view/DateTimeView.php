@@ -1,13 +1,11 @@
 <?php
 
-require_once('model/ServerTime.php');
-
 class DateTimeView {
 
 	public function show() {
+		date_default_timezone_set('Europe/Stockholm');
+		$timeString = date("l") . ", the " . date("jS") . " of " . date("F Y") . ", The time is " . date("H:i:s");
 
-		$timeString = ServerTime::getServerTime();
-
-		return '<p>' . $timeString . "hej" . '</p>';
+		return '<p>' . $timeString . '</p>';
 	}
 }
