@@ -72,12 +72,12 @@ class LoginView {
 	private function getRequestUserName() {
 		//RETURN REQUEST VARIABLE: USERNAME
 
-		if (self::$messageId == null) {
+		if (self::$messageId == '') {
 
 			return "Username is missing";
 		}
 
-		return null;
+		//return null;
 	}
 	
 }
