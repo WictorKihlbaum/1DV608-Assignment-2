@@ -72,9 +72,13 @@ class LoginView {
 	private function getRequestUserName($message) {
 		//RETURN REQUEST VARIABLE: USERNAME
 
-		if ( isset($_POST['login']) && !isset($this -> name) ) {
+		if ( isset($_POST["login"]) && !isset($this -> name) ) {
 
 			$message = "Username is missing";
+
+		} else {
+
+			$message = "";
 		}
 
 		return $message;
