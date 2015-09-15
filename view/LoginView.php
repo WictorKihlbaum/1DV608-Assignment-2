@@ -77,7 +77,7 @@ class LoginView {
 	private function getRequestUserName($message) {
 		//RETURN REQUEST VARIABLE: USERNAME
 
-		if ($this -> didUserPressLogin()) {
+		if ($this -> didUserPressLogin() && !isset($_GET[$this -> name])) {
 
 			$message = "Username is missing";
 
@@ -89,6 +89,7 @@ class LoginView {
 		return $message;
 	}
 
+	/*
 	public function getUserName() {
 
 		return $this -> name;
@@ -98,5 +99,5 @@ class LoginView {
 
 		return $this -> login;
 	}
-	
+	*/
 }
