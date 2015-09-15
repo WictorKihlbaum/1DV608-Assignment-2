@@ -86,6 +86,12 @@ class LoginView {
 			if (empty($userNameTextField)) {
 
 				$feedbackMessage = "Username is missing";
+
+			} else {
+
+				//setcookie(self::$name, $_POST[$userNameTextField], time()+60*60*24*365);
+
+				$feedbackMessage = "Password is missing";
 			}
 
 		} else {
