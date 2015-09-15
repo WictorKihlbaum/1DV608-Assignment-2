@@ -77,7 +77,7 @@ class LoginView {
 	private function getRequestUserName($feedbackMessage) {
 		//RETURN REQUEST VARIABLE: USERNAME
 
-		print_r($_POST);
+		//print_r($_POST);
 
 		if ($this -> didUserPressLogin()) {
 
