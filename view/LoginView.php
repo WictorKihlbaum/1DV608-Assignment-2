@@ -77,7 +77,7 @@ class LoginView {
 	private function getRequestUserName($message) {
 		//RETURN REQUEST VARIABLE: USERNAME
 
-		if ($this -> didUserPressLogin() && !isset($_GET[$this -> name])) {
+		if ($this -> didUserPressLogin() && !isset($_GET[self::$name])) {
 
 			$message = "Username is missing";
 
