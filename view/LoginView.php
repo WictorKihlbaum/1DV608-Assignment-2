@@ -83,7 +83,7 @@ class LoginView {
 
 		} else {
 
-			$message = "tjo";
+			$message = "";
 		}
 
 		return $message;
