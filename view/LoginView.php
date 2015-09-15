@@ -79,7 +79,7 @@ class LoginView {
 
 		print_r($_POST);
 
-		if ($this -> didUserPressLogin() && empty(self::$name) /*!isset($_GET[self::$name])*/ ) {
+		if ($this -> didUserPressLogin() && $this -> name == "" /*!isset($_GET[self::$name])*/ ) {
 
 			$message = "Username is missing";
 
