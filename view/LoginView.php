@@ -51,7 +51,7 @@ class LoginView {
 			<form method="post" > 
 				<fieldset>
 					<legend>Login - enter Username and password</legend>
-					<p id="' . self::$messageId . '">' . $message . '</p>
+					<p id="' . self::$messageId . '">' . $this -> didUserPressLogin($message) . '</p>
 					
 					<label for="' . self::$name . '">Username :</label>
 					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="" />
@@ -68,15 +68,16 @@ class LoginView {
 		';
 	}
 
-	if ( isset($_POST["login"]) {
-		echo "test";
+	public function didUserPressLogin() {
+
+		return isset( $_POST[self::$login] );
 	}
 
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
 	private function getRequestUserName($message) {
 		//RETURN REQUEST VARIABLE: USERNAME
 
-		/*if ( isset($_POST["login"]) && !isset($this -> name) ) {
+		if ($this -> didUserPressLogin()) {
 
 			$message = "Username is missing";
 
@@ -85,7 +86,7 @@ class LoginView {
 			$message = "";
 		}
 
-		return $message;*/
+		return $message;
 	}
 
 	public function getUserName() {
