@@ -70,7 +70,7 @@ class LoginView {
 
 	public function didUserPressLogin() {
 
-		return isset( $_POST[self::$login] );
+		return isset($_POST[self::$login]);
 	}
 
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
@@ -83,7 +83,7 @@ class LoginView {
 
 		} else {
 
-			$message = "";
+			$message = "tjo";
 		}
 
 		return $message;
