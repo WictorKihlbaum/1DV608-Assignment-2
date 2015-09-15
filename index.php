@@ -19,7 +19,8 @@ $dtv = new DateTimeView();
 $lv = new LayoutView();
 
 //CREATE OBJECTS OF THE CONTROLLERS
-$loginController = new LoginController($v);
+//$loginController = new LoginController($v);
+
 
 
 $lv->render(false, $v, $dtv);

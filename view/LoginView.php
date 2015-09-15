@@ -51,7 +51,7 @@ class LoginView {
 			<form method="post" > 
 				<fieldset>
 					<legend>Login - enter Username and password</legend>
-					<p id="' . self::$messageId . '">' . $this -> getRequestUserName($message) . '</p>
+					<p id="' . self::$messageId . '">' . $this -> setFeedbackMessage($message) . '</p>
 					
 					<label for="' . self::$name . '">Username :</label>
 					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="" />
@@ -73,23 +73,18 @@ class LoginView {
 		return isset($_POST[self::$login]);
 	}
 
-	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
-	private function getRequestUserName($feedbackMessage) {
-		//RETURN REQUEST VARIABLE: USERNAME
-
-		//print_r($_POST);
+	private function setFeedbackMessage($feedbackMessage) {
 
 		if ($this -> didUserPressLogin()) {
 
-			$userNameTextField = $_POST[self::$name];
+			$userNameField = $_POST[self::$name];
+			$passwordField = $_POST[self::$password];
 
-			if (empty($userNameTextField)) {
+			if (empty($userNameField)) {
 
-				$feedbackMessage = "Username is missing";
+				$feedbackMessage = $this -> getRequestUserName();
 
-			} else {
-
-				//setcookie(self::$name, $_POST[$userNameTextField], time()+60*60*24*365);
+			} else if (!empty($userNameField) && empty($passwordField)) {
 
 				$feedbackMessage = "Password is missing";
 			}
@@ -100,6 +95,13 @@ class LoginView {
 		}
 
 		return $feedbackMessage;
+	}
+
+	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
+	private function getRequestUserName() {
+		//RETURN REQUEST VARIABLE: USERNAME
+
+		return "Username is missing";
 	}
 
 }
