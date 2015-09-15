@@ -15,8 +15,4 @@ class LoginController {
         $this -> loginView = $v;
     }
 
-    private function loginButtonIsPressed() {
-
-        echo "test";
-    }
 }

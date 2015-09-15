@@ -74,32 +74,26 @@ class LoginView {
 	}
 
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
-	private function getRequestUserName($message) {
+	private function getRequestUserName($feedbackMessage) {
 		//RETURN REQUEST VARIABLE: USERNAME
 
 		print_r($_POST);
 
-		if ($this -> didUserPressLogin() && self::$name == "" /*!isset($_GET[self::$name])*/ ) {
+		if ($this -> didUserPressLogin()) {
 
-			$message = "Username is missing";
+			$userNameTextField = $_POST[self::$name];
+
+			if (empty($userNameTextField)) {
+
+				$feedbackMessage = "Username is missing";
+			}
 
 		} else {
 
-			$message = "";
+			$feedbackMessage = "";
 		}
 
-		return $message;
+		return $feedbackMessage;
 	}
 
-	/*
-	public function getUserName() {
-
-		return $this -> name;
-	}
-
-	public function getLoginButton() {
-
-		return $this -> login;
-	}
-	*/
 }
