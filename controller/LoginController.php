@@ -11,9 +11,10 @@ class LoginController {
 
     private $loginView;
 
-    public function __construct($loginView) {
 
-        $this -> loginView = $loginView;
+    public function __construct() {
+
+        $this -> loginView = new \view\LoginView();
     }
 
     public function loginUser() {
@@ -21,8 +22,6 @@ class LoginController {
         if ($this -> loginView -> didUserPressLogin()) {
 
             echo "TEST";
-
-
         }
     }
 
