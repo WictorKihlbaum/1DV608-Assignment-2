@@ -12,9 +12,9 @@ class LoginController {
     private $loginView;
 
 
-    public function __construct() {
+    public function __construct($loginView) {
 
-        $this -> loginView = new \view\LoginView();
+        $this -> loginView = $loginView;
     }
 
     public function loginUser() {
