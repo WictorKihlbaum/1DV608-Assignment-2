@@ -20,6 +20,7 @@ $lv = new LayoutView();
 
 //CREATE OBJECTS OF THE CONTROLLERS
 $loginController = new LoginController($v);
+$loginController -> loginUser();
 
 
 
