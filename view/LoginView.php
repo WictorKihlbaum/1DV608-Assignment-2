@@ -1,6 +1,7 @@
 <?php
 
 class LoginView {
+
 	private static $login = 'LoginView::Login';
 	private static $logout = 'LoginView::Logout';
 	private static $name = 'LoginView::UserName';
@@ -10,7 +11,7 @@ class LoginView {
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
 
-	
+
 
 	/**
 	 * Create HTTP response
@@ -21,17 +22,17 @@ class LoginView {
 	 */
 	public function response() {
 		$message = '';
-		
+
 		$response = $this->generateLoginFormHTML($message);
 		//$response .= $this->generateLogoutButtonHTML($message);
 		return $response;
 	}
 
 	/**
-	* Generate HTML code on the output buffer for the logout button
-	* @param $message, String output message
-	* @return  void, BUT writes to standard output!
-	*/
+	 * Generate HTML code on the output buffer for the logout button
+	 * @param $message, String output message
+	 * @return  void, BUT writes to standard output!
+	 */
 	private function generateLogoutButtonHTML($message) {
 		return '
 			<form  method="post" >
@@ -40,12 +41,12 @@ class LoginView {
 			</form>
 		';
 	}
-	
+
 	/**
-	* Generate HTML code on the output buffer for the logout button
-	* @param $message, String output message
-	* @return  void, BUT writes to standard output!
-	*/
+	 * Generate HTML code on the output buffer for the logout button
+	 * @param $message, String output message
+	 * @return  void, BUT writes to standard output!
+	 */
 	private function generateLoginFormHTML($message) {
 		return '
 			<form method="post" > 
@@ -54,7 +55,7 @@ class LoginView {
 					<p id="' . self::$messageId . '">' . $this -> setFeedbackMessage($message) . '</p>
 					
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="" />
+					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this -> fillInUserName() . '" />
 
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
@@ -73,6 +74,21 @@ class LoginView {
 		return isset($_POST[self::$login]);
 	}
 
+	private function fillInUserName() {
+
+		if (isset($_COOKIE[self::$cookieName])) {
+
+			return $_COOKIE[self::$cookieName];
+
+		} else {
+
+			setcookie(self::$cookieName, $_POST[self::$name], time() + 60 * 60 * 24 * 365);
+			$_COOKIE[self::$cookieName] = $_POST[self::$name];
+
+			return $_POST[self::$name];
+		}
+	}
+
 	private function setFeedbackMessage($feedbackMessage) {
 
 		if ($this -> didUserPressLogin()) {
@@ -86,7 +102,7 @@ class LoginView {
 
 			} else if (!empty($userNameField) && empty($passwordField)) {
 
-				$feedbackMessage = "Password is missing";
+				$feedbackMessage = $this -> getReguestPassword();
 			}
 
 		} else {
@@ -101,6 +117,11 @@ class LoginView {
 	private function getRequestUserName() {
 		//RETURN REQUEST VARIABLE: USERNAME
 		return "Username is missing";
+	}
+
+	private function getReguestPassword() {
+
+		return "Password is missing";
 	}
 
 }
