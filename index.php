@@ -22,14 +22,14 @@ $v = new LoginView();
 $dtv = new DateTimeView();
 $lv = new LayoutView();
 
-//CREATE OBJECTS OF THE CONTROLLERS
-$loginController = new LoginController($v);
-$loginController -> loginUser();
-
 // CREATE OBJECTS OF THE MODELS
-$adminUser = new User("Admin", "Password");
+$user = new User("Admin", "Password");
+
+//CREATE OBJECTS OF THE CONTROLLERS
+$loginController = new LoginController($user, $v);
 
 
+$loginController -> loginUser();
 
 $lv->render(false, $v, $dtv);
 

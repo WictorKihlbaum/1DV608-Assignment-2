@@ -2,14 +2,14 @@
 
 /**
  * Created by PhpStorm.
- * User: wicto
+ * User: wictor
  * Date: 2015-09-20
  * Time: 19:40
  */
 class User {
 
-    private $username = "Admin";
-    private $password = "Password";
+    private $username;
+    private $password;
 
 
     public function __construct($username, $password) {

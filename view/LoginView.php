@@ -74,6 +74,16 @@ class LoginView {
 		return isset($_POST[self::$login]);
 	}
 
+	public function getPostedUserName() {
+
+		return $_POST[self::$name];
+	}
+
+	public function getPostedPassword() {
+
+		return $_POST[self::$password];
+	}
+
 	private function fillInUserName() {
 
 		if (isset($_COOKIE[self::$cookieName])) {
