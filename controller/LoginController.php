@@ -29,7 +29,8 @@ class LoginController {
 
             } catch (Exception $e) {
 
-                $e -> getMessage();
+                $errorMessage = $e -> getMessage();
+                echo $errorMessage;
             }
 
             $user = new UserModel($postedUserName, $postedPassword);
