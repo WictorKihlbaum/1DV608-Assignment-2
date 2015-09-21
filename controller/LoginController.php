@@ -22,10 +22,16 @@ class LoginController {
         // Get user input if user pressed 'login'.
         if ($this -> loginView -> didUserPressLogin()) {
 
-            $postedUserName = $this -> loginView -> getPostedUserName();
-            $postedPassword = $this -> loginView -> getPostedPassword();
+            try {
 
-            //$user = new UserModel($postedUserName, $postedPassword);
+                $postedUserName = $this -> loginView -> getPostedUserName();
+                $postedPassword = $this -> loginView -> getPostedPassword();
+
+            } catch (Exception $e) {
+
+                $e -> $this->getMessage();
+            }
+
             $user = new UserModel($postedUserName, $postedPassword);
             // Validate user input in 'loginModel' and return true/false.
             return $this -> loginModel -> validateUserInput($user);
