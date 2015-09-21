@@ -29,7 +29,7 @@ class LoginController {
 
             } catch (Exception $e) {
 
-                $e -> $this->getMessage();
+                $e -> getMessage();
             }
 
             $user = new UserModel($postedUserName, $postedPassword);
