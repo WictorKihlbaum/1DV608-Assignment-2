@@ -9,33 +9,27 @@
 
 class LoginController {
 
-    private $user;
     private $loginView;
+    private $loginModel;
 
 
-    public function __construct($user, $loginView) {
+    public function __construct($loginView, $loginModel) {
 
-        $this -> user = $user;
         $this -> loginView = $loginView;
+        $this -> loginModel = $loginModel;
     }
 
     public function loginUser() {
-
+        // Get user input if user pressed 'login'.
         if ($this -> loginView -> didUserPressLogin()) {
 
-            echo "TEST";
+            $postedUserName = $this -> loginView -> getPostedUserName();
+            $postedPassword = $this -> loginView -> getPostedPassword();
 
-            $this -> validateUserNameInput();
+            $user = new UserModel($postedUserName, $postedPassword);
+            // Validate user input in 'loginModel' and return true/false.
+            return $this -> loginModel -> validateUserInput($user);
         }
     }
 
-    private function validateUserNameInput() {
-
-        if ($this -> loginView -> getPostedUserName() != $this -> user -> getUserName()) {
-
-            echo "TEST 2";
-
-            //$this -> loginView -> response($this -> loginView -> );
-        }
-    }
 }

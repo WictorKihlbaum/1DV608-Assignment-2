@@ -11,7 +11,8 @@ require_once('view/LayoutView.php');
 require_once('controller/LoginController.php');
 
 // Models.
-require_once('model/User.php');
+require_once('model/LoginModel.php');
+require_once('model/UserModel.php');
 
 //MAKE SURE ERRORS ARE SHOWN... MIGHT WANT TO TURN THIS OFF ON A PUBLIC SERVER
 error_reporting(E_ALL);
@@ -23,13 +24,12 @@ $dtv = new DateTimeView();
 $lv = new LayoutView();
 
 // CREATE OBJECTS OF THE MODELS
-$user = new User("Admin", "Password");
+$loginModel = new LoginModel();
 
 //CREATE OBJECTS OF THE CONTROLLERS
-$loginController = new LoginController($user, $v);
+$loginController = new LoginController($v, $loginModel);
 
+$isUserLoggedIn = $loginController -> loginUser();
+$lv->render($isUserLoggedIn, $v, $dtv);
 
-$loginController -> loginUser();
-
-$lv->render(false, $v, $dtv);
 
