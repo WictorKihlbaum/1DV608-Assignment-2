@@ -33,8 +33,7 @@ class LoginController {
 
             } catch (Exception $e) {
 
-                $errorMessage = $e -> getMessage();
-                echo $errorMessage;
+                echo 'Caught exception: ', $e -> getMessage(), "\n";
                 //var_dump($e->getMessage());
             }
         }
