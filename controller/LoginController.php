@@ -27,14 +27,15 @@ class LoginController {
                 $postedUserName = $this -> loginView -> getPostedUserName();
                 $postedPassword = $this -> loginView -> getPostedPassword();
 
+                $user = new UserModel($postedUserName, $postedPassword);
+
             } catch (Exception $e) {
 
-                //$errorMessage = $e -> getMessage();
-                //echo $errorMessage;
-                var_dump($e->getMessage());
+                $errorMessage = $e -> getMessage();
+                echo $errorMessage;
+                //var_dump($e->getMessage());
             }
 
-            $user = new UserModel($postedUserName, $postedPassword);
             // Validate user input in 'loginModel' and return true/false.
             return $this -> loginModel -> validateUserInput($user);
         }
