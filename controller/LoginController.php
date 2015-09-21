@@ -6,8 +6,6 @@
  * Date: 2015-09-14
  * Time: 13:56
  */
-require_once('model/UserModel.php');
-
 class LoginController {
 
     private $loginView;
@@ -27,7 +25,7 @@ class LoginController {
             $postedUserName = $this -> loginView -> getPostedUserName();
             $postedPassword = $this -> loginView -> getPostedPassword();
 
-            $user = new UserModel($postedUserName, $postedPassword);
+            $user = new \model\UserModel($postedUserName, $postedPassword);
             // Validate user input in 'loginModel' and return true/false.
             return $this -> loginModel -> validateUserInput($user);
         }

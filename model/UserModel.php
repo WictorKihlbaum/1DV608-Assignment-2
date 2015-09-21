@@ -6,7 +6,7 @@
  * Date: 2015-09-20
  * Time: 19:40
  */
-class User {
+class UserModel {
 
     private $username;
     private $password;
