@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="129456a9-45f0-4c87-b427-da806273ccd1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/LoginController.php" afterPath="$PROJECT_DIR$/controller/LoginController.php" />
-    </list>
+    <list default="true" id="129456a9-45f0-4c87-b427-da806273ccd1" name="Default" comment="" />
     <ignored path="1DV608-Assignment-2.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
