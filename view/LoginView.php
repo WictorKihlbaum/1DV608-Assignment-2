@@ -119,9 +119,9 @@ class LoginView {
 
 
 
-			$this -> getRequestUserName();
-			$this -> getRequestPassword();
+			$feedbackMessage = $this -> getRequestUserName();
 
+			return $feedbackMessage;
 		}
 	}
 
@@ -131,7 +131,7 @@ class LoginView {
 
 		if (isset($_POST[self::$name])) {
 
-			return $_GET[self::$name];
+			return $_POST[self::$name];
 
 		} else {
 
@@ -143,7 +143,7 @@ class LoginView {
 
 		if (isset($_POST[self::$password])) {
 
-			return $_GET[self::$password];
+			return $_POST[self::$password];
 
 		} else {
 
