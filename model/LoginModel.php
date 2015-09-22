@@ -20,7 +20,7 @@ class LoginModel {
 
         foreach ($filesInFolder as $fileName) {
 
-            $userArray = explode("\n", $fileName);
+            $userArray = explode($fileName);
 
             var_dump($userArray[0]);
 
