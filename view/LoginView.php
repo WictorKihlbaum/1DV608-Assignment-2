@@ -120,10 +120,12 @@ class LoginView {
 			if (!$this -> getRequestUserName()) {
 
 				$feedbackMessage = "Username is missing";
-			}
 
-			return $feedbackMessage;
+
+			}
 		}
+
+		return $feedbackMessage;
 	}
 
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
@@ -134,14 +136,7 @@ class LoginView {
 
 	private function getReguestPassword() {
 
-		if (isset($_POST[self::$password])) {
-
-			return $_POST[self::$password];
-
-		} else {
-
-			return "";
-		}
+		return isset($_POST[self::$password]);
 	}
 
 }
