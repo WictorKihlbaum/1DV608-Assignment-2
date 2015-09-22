@@ -24,14 +24,11 @@ class LoginController {
 
             try {
 
-                $postedUserName = $this -> loginView -> getPostedUserName();
-                $postedPassword = $this -> loginView -> getPostedPassword();
-
-                $user = new UserModel($postedUserName, $postedPassword);
-                // Validate user input in 'loginModel' and return true/false.
+                $user = $this -> loginView -> createUserObject();
+                // Validate user's username/password in 'loginModel' and return true/false.
                 return $this -> loginModel -> validateUserInput($user);
 
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
 
                 echo "Caught exception: " . $e -> getMessage() . "\n";
             }

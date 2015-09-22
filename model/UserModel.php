@@ -15,14 +15,14 @@ class UserModel {
     public function __construct($username, $password) {
 
         // Make sure both username and password are filled in.
-       if (!empty($username)) {
+        if (!empty($username)) {
 
-           $this -> username = $username;
+            $this -> username = $username;
 
-       } else {
+        } else {
 
-           throw new \Exception("Username is not filled in");
-       }
+            throw new \Exception("Username is missing");
+        }
 
         if (!empty($password)) {
 
@@ -30,7 +30,7 @@ class UserModel {
 
         } else {
 
-            throw new \Exception("Password is not filled in");
+            throw new \Exception("Password is missing");
         }
     }
 

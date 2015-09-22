@@ -12,7 +12,6 @@ class LoginView {
 	private static $messageId = 'LoginView::Message';
 
 
-
 	/**
 	 * Create HTTP response
 	 *
@@ -49,11 +48,24 @@ class LoginView {
 	 * @return  void, BUT writes to standard output!
 	 */
 	private function generateLoginFormHTML($message) {
+
+		if ($this -> didUserPressLogin()) {
+
+			if (!$this -> userNameIsSet() && !$this -> passwordIsSet()) {
+
+				$message = "Username is missing";
+
+			} else if ($this -> userNameIsSet() && !$this -> passwordIsSet()) {
+
+				$message = "Password is missing";
+			}
+		}
+
 		return '
 			<form method="post" > 
 				<fieldset>
 					<legend>Login - enter Username and password</legend>
-					<p id="' . self::$messageId . '">' . $this -> getFeedbackMessage($message) . '</p>
+					<p id="' . self::$messageId . '">' . $message . '</p>
 					
 					<label for="' . self::$name . '">Username :</label>
 					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this -> getCookieUserName() . '" />
@@ -70,19 +82,14 @@ class LoginView {
 		';
 	}
 
+	public function createUserObject() {
+
+		return new UserModel($this -> getRequestUserName(), $this -> getReguestPassword());
+	}
+
 	public function didUserPressLogin() {
 
 		return isset($_POST[self::$login]);
-	}
-
-	public function getPostedUserName() {
-
-		return $_POST[self::$name];
-	}
-
-	public function getPostedPassword() {
-
-		return $_POST[self::$password];
 	}
 
 	private function getCookieUserName() {
@@ -96,40 +103,20 @@ class LoginView {
 			setcookie(self::$cookieName, $_POST[self::$name], time() + 60 * 60 * 24 * 365);
 			$_COOKIE[self::$cookieName] = $_POST[self::$name];
 
-			return $_POST[self::$name];
-		}
-	}
-
-	private function getFeedbackMessage($message) {
-
-		if ($this -> didUserPressLogin()) {
-
-			if (!$this -> userNameIsSet()) {
-
-				$message = "Username is missing";
-
-			}
-
-			/*if (!$this -> passwordIsSet()) {
-
-				$message = "Password is missing";
-			}*/
-
-			return $message;
+			return $_GET[self::$name];
 		}
 	}
 
 	private function userNameIsSet() {
 
-		var_dump(empty(!self::$name));
 		return empty(!self::$name);
-
 		//return isset($_POST[self::$name]);
 	}
 
 	private function passwordIsSet() {
 
-		return isset($_POST[self::$password]);
+		return empty(!self::$password);
+		//return isset($_POST[self::$password]);
 	}
 
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
@@ -139,7 +126,7 @@ class LoginView {
 	}
 
 	private function getReguestPassword() {
-
+		//RETURN REQUEST VARIABLE: PASSWORD
 		return $_POST[self::$password];
 	}
 
