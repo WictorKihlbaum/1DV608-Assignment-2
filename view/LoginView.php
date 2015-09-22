@@ -23,23 +23,10 @@ class LoginView {
 	public function response($isLoggedIn) {
 
 		$message = '';
-
-		if (!$isLoggedIn) {
-
-			$response = $this->generateLoginFormHTML($message);
-
-		} else {
-
-			$response = $this -> generateLogoutButtonHTML($message);
-		}
-
-		return $response;
-
-		/*
+		
 		$response = $this->generateLoginFormHTML($message);
 		//$response .= $this->generateLogoutButtonHTML($message);
 		return $response;
-		*/
 	}
 
 	/**
