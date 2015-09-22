@@ -11,7 +11,7 @@ class LoginModel {
     //private $registeredUserName = "Admin";
     //private $registeredPassword = "Password";
 
-    private static $folder = "../RegisteredUsers/";
+    private static $folder = "RegisteredUsers";
 
 
     public function validateUserInput($user) {
