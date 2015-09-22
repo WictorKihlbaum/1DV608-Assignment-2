@@ -125,9 +125,9 @@ class LoginView {
 
 				$message = "Password is missing";
 			}
-		}
 
-		return $message;
+			return $message;
+		}
 	}
 
 	private function userNameIsSet() {
