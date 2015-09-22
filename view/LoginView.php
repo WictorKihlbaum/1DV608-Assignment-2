@@ -23,7 +23,7 @@ class LoginView {
 	public function response($isLoggedIn) {
 
 		$message = '';
-		
+
 		$response = $this->generateLoginFormHTML($message);
 		//$response .= $this->generateLogoutButtonHTML($message);
 		return $response;
@@ -101,6 +101,8 @@ class LoginView {
 	}
 
 	private function getFeedbackMessage($message) {
+
+		echo "hej";
 
 		if ($this -> didUserPressLogin()) {
 
