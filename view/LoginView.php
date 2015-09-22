@@ -113,30 +113,42 @@ class LoginView {
 		}
 	}
 
-	private function getFeedbackMessage($feedbackMessage) {
+	private function getFeedbackMessage($message) {
 
 		if ($this -> didUserPressLogin()) {
 
-			if (!$this -> getRequestUserName()) {
+			if (!$this -> userNameIsSet()) {
 
-				$feedbackMessage = "Username is missing";
+				$message = "Username is missing";
 
+			} else if (!$this -> passwordIsSet()) {
 
+				$message = "Password is missing";
 			}
 		}
 
-		return $feedbackMessage;
+		return $message;
+	}
+
+	private function userNameIsSet() {
+
+		return isset($_POST[self::$name]);
+	}
+
+	private function passwordIsSet() {
+
+		return isset($_POST[self::$password]);
 	}
 
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
 	private function getRequestUserName() {
 		//RETURN REQUEST VARIABLE: USERNAME
-		return isset($_POST[self::$name]);
+		return $_POST[self::$name];
 	}
 
 	private function getReguestPassword() {
 
-		return isset($_POST[self::$password]);
+		return $_POST[self::$password];
 	}
 
 }
