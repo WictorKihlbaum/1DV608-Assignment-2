@@ -76,7 +76,14 @@ class LoginView {
 
 	public function getPostedUserName() {
 
-		return $_POST[self::$name];
+		if (isset($_POST[self::$name])) {
+
+			return $_POST[self::$name];
+
+		} else {
+
+			return "";
+		}
 	}
 
 	public function getPostedPassword() {
