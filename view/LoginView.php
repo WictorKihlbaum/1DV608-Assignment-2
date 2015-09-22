@@ -102,18 +102,18 @@ class LoginView {
 
 	private function getFeedbackMessage($message) {
 
-		echo "hej";
-
 		if ($this -> didUserPressLogin()) {
 
 			if (!$this -> userNameIsSet()) {
 
 				$message = "Username is missing";
 
-			} else if (!$this -> passwordIsSet()) {
+			}
+
+			/*if (!$this -> passwordIsSet()) {
 
 				$message = "Password is missing";
-			}
+			}*/
 
 			return $message;
 		}
