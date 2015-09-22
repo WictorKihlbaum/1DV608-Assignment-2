@@ -121,9 +121,10 @@ class LoginView {
 
 	private function userNameIsSet() {
 
-		var_dump(isset($_POST[self::$name]));
+		var_dump(empty(!self::$name));
+		return empty(!self::$name);
 
-		return isset($_POST[self::$name]);
+		//return isset($_POST[self::$name]);
 	}
 
 	private function passwordIsSet() {
