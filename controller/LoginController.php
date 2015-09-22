@@ -33,7 +33,7 @@ class LoginController {
 
             } catch (Exception $e) {
 
-                echo "Caught exception: " . $e -> getMessage() . "\n";
+                assert("Caught exception: " . $e -> getMessage() . "\n");
             }
         }
     }

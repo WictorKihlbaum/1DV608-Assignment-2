@@ -20,12 +20,26 @@ class LoginView {
 	 *
 	 * @return  void BUT writes to standard output and cookies!
 	 */
-	public function response() {
+	public function response($isLoggedIn) {
+
 		$message = '';
 
+		if (!$isLoggedIn) {
+
+			$response = $this->generateLoginFormHTML($message);
+
+		} else {
+
+			$response = $this -> generateLogoutButtonHTML($message);
+		}
+
+		return $response;
+
+		/*
 		$response = $this->generateLoginFormHTML($message);
 		//$response .= $this->generateLogoutButtonHTML($message);
 		return $response;
+		*/
 	}
 
 	/**
@@ -52,10 +66,10 @@ class LoginView {
 			<form method="post" > 
 				<fieldset>
 					<legend>Login - enter Username and password</legend>
-					<p id="' . self::$messageId . '">' . $this -> setFeedbackMessage($message) . '</p>
+					<p id="' . self::$messageId . '">' . $this -> getFeedbackMessage($message) . '</p>
 					
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this -> fillInUserName() . '" />
+					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this -> getCookieUserName() . '" />
 
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
@@ -76,14 +90,7 @@ class LoginView {
 
 	public function getPostedUserName() {
 
-		if (isset($_POST[self::$name])) {
-
-			return $_POST[self::$name];
-
-		} else {
-
-			return "";
-		}
+		return $_POST[self::$name];
 	}
 
 	public function getPostedPassword() {
@@ -91,7 +98,7 @@ class LoginView {
 		return $_POST[self::$password];
 	}
 
-	private function fillInUserName() {
+	private function getCookieUserName() {
 
 		if (isset($_COOKIE[self::$cookieName])) {
 
@@ -106,39 +113,42 @@ class LoginView {
 		}
 	}
 
-	private function setFeedbackMessage($feedbackMessage) {
+	private function getFeedbackMessage($feedbackMessage) {
 
 		if ($this -> didUserPressLogin()) {
 
-			$userNameField = $_POST[self::$name];
-			$passwordField = $_POST[self::$password];
 
-			if (empty($userNameField)) {
 
-				$feedbackMessage = $this -> getRequestUserName();
+			$this -> getRequestUserName();
+			$this -> getRequestPassword();
 
-			} else if (!empty($userNameField) && empty($passwordField)) {
-
-				$feedbackMessage = $this -> getReguestPassword();
-			}
-
-		} else {
-
-			$feedbackMessage = "";
 		}
-
-		return $feedbackMessage;
 	}
 
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
 	private function getRequestUserName() {
 		//RETURN REQUEST VARIABLE: USERNAME
-		return "Username is missing";
+
+		if (isset($_POST[self::$name])) {
+
+			return $_GET[self::$name];
+
+		} else {
+
+			return "";
+		}
 	}
 
 	private function getReguestPassword() {
 
-		return "Password is missing";
+		if (isset($_POST[self::$password])) {
+
+			return $_GET[self::$password];
+
+		} else {
+
+			return "";
+		}
 	}
 
 }
