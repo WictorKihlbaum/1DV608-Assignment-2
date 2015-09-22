@@ -8,34 +8,13 @@
  */
 class LoginModel {
 
-    //private $registeredUserName = "Admin";
-    //private $registeredPassword = "Password";
-
-    private static $folder = "RegisteredUsers";
+    private $registeredUserName = "Admin";
+    private $registeredPassword = "Password";
 
 
     public function validateUserInput($user) {
 
-        $filesInFolder = scandir(self::$folder);
-
-        foreach ($filesInFolder as $fileName) {
-
-            $userArray = explode($fileName);
-
-            var_dump($userArray[0]);
-
-            if ($userArray[0] === $user -> getUserName() &&
-                $userArray[1] === $user -> getPassword()) {
-
-                return true;
-
-            } else {
-
-                return false;
-            }
-        }
-
-        /*if ($this -> registeredUserName === $user -> getUserName() &&
+        if ($this -> registeredUserName === $user -> getUserName() &&
             $this -> registeredPassword === $user -> getPassword()) {
 
             return true;
@@ -43,6 +22,6 @@ class LoginModel {
         } else {
 
             return false;
-        }*/
+        }
     }
 }
