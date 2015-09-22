@@ -22,6 +22,8 @@ class LoginModel {
 
             $userArray = explode("\n", $fileName);
 
+            var_dump($userArray[0]);
+
             if ($userArray[0] === $user -> getUserName() &&
                 $userArray[1] === $user -> getPassword()) {
 
