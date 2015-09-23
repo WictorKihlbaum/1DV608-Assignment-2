@@ -47,6 +47,19 @@ class LoginView {
 	* @return  void, BUT writes to standard output!
 	*/
 	private function generateLoginFormHTML($message) {
+
+		if ($this -> didUserPressLogin()) {
+
+			if (!$this -> userNameIsSet() && !$this -> passwordIsSet()) {
+
+				$message = "Username is missing";
+
+			} else if ($this -> userNameIsSet() && !$this -> passwordIsSet()) {
+
+				$message = "Password is missing";
+			}
+		}
+
 		return '
 			<form method="post" > 
 				<fieldset>
@@ -102,6 +115,18 @@ class LoginView {
 
 			return $_POST[self::$name]; // ev get
 		}
+	}
+
+	private function userNameIsSet() {
+
+		return empty(!self::$name);
+		//return isset($_POST[self::$name]);
+	}
+
+	private function passwordIsSet() {
+
+		return empty(!self::$password);
+		//return isset($_POST[self::$password]);
 	}
 	
 }
