@@ -24,7 +24,7 @@ class LoginController {
 
             try {
 
-                $user = $this -> loginView -> createUserObject();
+                $user = $this -> loginView -> getUserObject();
                 // Validate user's username/password in 'loginModel' and return true/false.
                 return $this -> loginModel -> validateUserInput($user);
 

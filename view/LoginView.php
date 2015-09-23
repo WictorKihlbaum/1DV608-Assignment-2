@@ -84,7 +84,7 @@ class LoginView {
 		';
 	}
 
-	public function createUserObject() {
+	public function getUserObject() {
 
 		return new UserModel($this -> getRequestUserName(), $this -> getReguestPassword());
 	}
