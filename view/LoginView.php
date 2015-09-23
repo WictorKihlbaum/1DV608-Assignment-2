@@ -49,19 +49,19 @@ class LoginView {
 	 */
 	private function generateLoginFormHTML($message) {
 
-		if ($this -> didUserPressLogin()) {
+		/*if ($this -> didUserPressLogin()) {
 
 			echo "TEST";
 
-			/*if (!$this -> userNameIsSet() && !$this -> passwordIsSet()) {
+			if (!$this -> userNameIsSet() && !$this -> passwordIsSet()) {
 
 				$message = "Username is missing";
 
 			} else if ($this -> userNameIsSet() && !$this -> passwordIsSet()) {
 
 				$message = "Password is missing";
-			}*/
-		}
+			}
+		}*/
 
 		return '
 			<form method="post" > 
