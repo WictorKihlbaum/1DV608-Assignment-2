@@ -54,7 +54,7 @@ class LoginView {
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="" />
+					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this -> getCookieUserName() . '" />
 
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
@@ -87,6 +87,21 @@ class LoginView {
 	private function getRequestPassword() {
 		//RETURN REQUEST VARIABLE: PASSWORD
 		return $_POST[self::$password];
+	}
+
+	private function getCookieUserName() {
+
+		if (isset($_COOKIE[self::$cookieName])) {
+
+			return $_COOKIE[self::$cookieName];
+
+		} else {
+
+			setcookie(self::$cookieName, $_POST[self::$name], time() + 60 * 60 * 24 * 365);
+			$_COOKIE[self::$cookieName] = $_POST[self::$name];
+
+			return $_POST[self::$name]; // ev get
+		}
 	}
 	
 }
