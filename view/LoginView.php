@@ -61,6 +61,8 @@ class LoginView {
 
 				$message = "Password is missing";
 			}
+
+		. $this -> getCookieUserName() .
 		}*/
 
 		return '
@@ -70,7 +72,7 @@ class LoginView {
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this -> getCookieUserName() . '" />
+					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="" />
 
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
@@ -84,7 +86,7 @@ class LoginView {
 		';
 	}
 
-	public function getUserObject() {
+	public function getUser() {
 
 		return new UserModel($this -> getRequestUserName(), $this -> getReguestPassword());
 	}
