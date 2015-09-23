@@ -72,10 +72,21 @@ class LoginView {
 
 		return isset($_POST[self::$login]);
 	}
+
+	public function getUser() {
+
+		return new UserModel($this -> getRequestUserName(), $this -> getRequestPassword());
+	}
 	
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
 	private function getRequestUserName() {
 		//RETURN REQUEST VARIABLE: USERNAME
+		return $_POST[self::$name];
+	}
+
+	private function getRequestPassword() {
+		//RETURN REQUEST VARIABLE: PASSWORD
+		return $_POST[self::$password];
 	}
 	
 }
