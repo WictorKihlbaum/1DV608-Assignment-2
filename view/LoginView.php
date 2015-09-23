@@ -67,6 +67,11 @@ class LoginView {
 			</form>
 		';
 	}
+
+	public function didUserPressLogin() {
+
+		return isset($_POST[self::$login]);
+	}
 	
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
 	private function getRequestUserName() {
