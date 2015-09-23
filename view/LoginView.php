@@ -107,7 +107,7 @@ class LoginView {
 			setcookie(self::$cookieName, $_POST[self::$name], time() + 60 * 60 * 24 * 365);
 			$_COOKIE[self::$cookieName] = $_POST[self::$name];
 
-			return $_GET[self::$name];
+			return $_POST[self::$name];
 		}
 	}
 
