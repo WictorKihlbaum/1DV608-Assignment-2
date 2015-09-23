@@ -51,14 +51,16 @@ class LoginView {
 
 		if ($this -> didUserPressLogin()) {
 
-			if (!$this -> userNameIsSet() && !$this -> passwordIsSet()) {
+			echo "TEST";
+
+			/*if (!$this -> userNameIsSet() && !$this -> passwordIsSet()) {
 
 				$message = "Username is missing";
 
 			} else if ($this -> userNameIsSet() && !$this -> passwordIsSet()) {
 
 				$message = "Password is missing";
-			}
+			}*/
 		}
 
 		return '
