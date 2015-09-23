@@ -47,6 +47,30 @@ class LoginView {
 	* @return  void, BUT writes to standard output!
 	*/
 	private function generateLoginFormHTML($message) {
+		
+		if ($this -> didUserPressLogin()) {
+			
+			if (!$_POST[self::$name] && !$_POST[self::$password] || 
+				!$_POST[self::$name] && $_POST[self::$password]) {
+				
+				$message = "Username is missing";
+				
+			} else if ($_POST[self::$name] && !$_POST[self::$password]) {
+				
+				$message = "Password is missing";
+				
+			} else {
+				
+				$message = "Welcome";
+			}
+			
+		} else if (isset($_SESSION[$messageId])) {
+			
+			$message = "" . $_SESSION[$messageId];
+			unset($_SESSION[$messageId]);
+		}
+		
+		//var_dump($_POST[self::$name]);
 
 		return '
 			<form method="post" > 
@@ -55,7 +79,7 @@ class LoginView {
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="" />
+					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this -> getCookieUserName() . '" />
 
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
@@ -101,20 +125,29 @@ class LoginView {
 			setcookie(self::$cookieName, $_POST[self::$name], time() + 60 * 60 * 24 * 365);
 			$_COOKIE[self::$cookieName] = $_POST[self::$name];
 
-			return $_POST[self::$name]; // ev get
+			return $_GET[self::$name]; // ev get
 		}
 	}
 
 	private function userNameIsSet() {
+		
+		if (!empty(self::$name) && isset($_POST[self::$name])) {
+			return true;
+		} else {
+			return false;
+		}
 
-		return empty(!self::$name);
+		//return !empty(self::$name);
 		//return isset($_POST[self::$name]);
 	}
 
 	private function passwordIsSet() {
 
-		return empty(!self::$password);
-		//return isset($_POST[self::$password]);
+		if (!empty(self::$password) && isset($_POST[self::$password])) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 }
