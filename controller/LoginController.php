@@ -19,9 +19,10 @@ class LoginController {
     }
 
     public function loginUser() {
+        
         // Get user input if user pressed 'login'.
         if ($this -> loginView -> didUserPressLogin()) {
-
+            
             try {
 
                 $user = $this -> loginView -> getUser();
@@ -30,7 +31,7 @@ class LoginController {
                 
             } catch (\Exception $e) {
 
-                echo "Caught exception: " . $e -> getMessage() . "\n";
+                echo $e -> getMessage();
             }
         }
     }

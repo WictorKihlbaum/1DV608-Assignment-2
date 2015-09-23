@@ -10,6 +10,14 @@ class LoginView {
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
 
+	// Messages
+	private static $message = "";
+	private static $loginMessage = "Welcome";
+	private static $logoutMessage = "Bye bye";
+	private static $missingUserNameMessage = "Username is missing";
+	private static $missingPasswordMessage = "Password is missing";
+	private static $wrongInputMessage = "Wrong name or password";
+	
 	
 
 	/**
@@ -21,11 +29,10 @@ class LoginView {
 	 */
 	public function response($isLoggedIn) {
 		
-		$message = $this -> setMessage();
+		$message = "";
 		
 		if ($isLoggedIn) {
 			
-			$message = "Welcome";
 			$response = $this -> generateLogoutButtonHTML($message);
 			
 		} else {
@@ -33,26 +40,7 @@ class LoginView {
 			$response = $this->generateLoginFormHTML($message);
 		}
 		
-		//$response = $this->generateLoginFormHTML($message);
-		//$response .= $this->generateLogoutButtonHTML($message);
 		return $response;
-	}
-	
-	private function setMessage() {
-		
-		if ($this -> didUserPressLogin()) {
-			
-			if (!$_POST[self::$name] && !$_POST[self::$password] || 
-				!$_POST[self::$name] && $_POST[self::$password]) {
-				
-				return "Username is missing";
-				
-			} else if ($_POST[self::$name] && !$_POST[self::$password]) {
-				
-				return "Password is missing";
-				
-			} 
-		}
 	}
 
 	/**
@@ -101,9 +89,31 @@ class LoginView {
 
 		return isset($_POST[self::$login]);
 	}
+	
+	public function didUserPressLogout() {
+		
+		return isset($_POST[self::$logout]);
+	}
 
 	public function getUser() {
-
+		
+		try {
+			
+			if (!$this -> userNameIsSet()) {
+			
+				throw new \Exception(self::$missingUsernameMessage);
+			
+			} else if (!$this -> passwordIsSet) {
+			
+				throw new \Exception(self::$missingPasswordMessage);
+			}
+			
+		} catch (\Exception $e) {
+			
+			
+			
+		}
+		
 		return new UserModel($this -> getRequestUserName(), $this -> getRequestPassword());
 	}
 	
@@ -129,29 +139,24 @@ class LoginView {
 			setcookie(self::$cookieName, $_POST[self::$name], time() + 60 * 60 * 24 * 365);
 			$_COOKIE[self::$cookieName] = $_POST[self::$name];
 
-			return $_GET[self::$name]; // ev get
+			return $_GET[self::$name];
 		}
 	}
 
 	private function userNameIsSet() {
 		
-		if (!empty(self::$name) && isset($_POST[self::$name])) {
-			return true;
-		} else {
-			return false;
-		}
-
-		//return !empty(self::$name);
-		//return isset($_POST[self::$name]);
+		return isset($_POST[self::$name]);
 	}
 
 	private function passwordIsSet() {
 
-		if (!empty(self::$password) && isset($_POST[self::$password])) {
-			return true;
-		} else {
-			return false;
-		}
+		return isset($_POST[self::$password]);
+	}
+	
+	public function reloadPage() {
+		
+		header('Location: ' . $_SERVER['REQUEST_URI']);
+		exit();
 	}
 	
 }
