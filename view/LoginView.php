@@ -48,8 +48,6 @@ class LoginView {
 	*/
 	private function generateLoginFormHTML($message) {
 
-
-
 		return '
 			<form method="post" > 
 				<fieldset>
@@ -105,18 +103,6 @@ class LoginView {
 
 			return $_POST[self::$name]; // ev get
 		}
-	}
-
-	private function userNameIsSet() {
-
-		return empty(!self::$name);
-		//return isset($_POST[self::$name]);
-	}
-
-	private function passwordIsSet() {
-
-		return empty(!self::$password);
-		//return isset($_POST[self::$password]);
 	}
 	
 }
