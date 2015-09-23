@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 //INCLUDE THE FILES NEEDED...
 
 // Views.
@@ -28,6 +26,7 @@ $lv = new LayoutView();
 
 // CREATE OBJECTS OF THE MODELS
 $loginModel = new LoginModel();
+$sessionModel = new SessionModel();
 
 //CREATE OBJECTS OF THE CONTROLLERS
 $loginController = new LoginController($v, $loginModel);

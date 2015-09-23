@@ -11,7 +11,6 @@ class LoginView {
 	private static $messageId = 'LoginView::Message';
 
 	// Messages
-	private static $message = "";
 	private static $loginMessage = "Welcome";
 	private static $logoutMessage = "Bye bye";
 	private static $missingUserNameMessage = "Username is missing";
@@ -110,8 +109,7 @@ class LoginView {
 			
 		} catch (\Exception $e) {
 			
-			
-			
+			$this -> message = $e -> getMessage();
 		}
 		
 		return new UserModel($this -> getRequestUserName(), $this -> getRequestPassword());
