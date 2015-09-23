@@ -19,17 +19,17 @@ require_once('model/SessionModel.php');
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
+// CREATE OBJECTS OF THE MODELS
+$sessionModel = new SessionModel();
+$loginModel = new LoginModel($sessionModel);
+
 //CREATE OBJECTS OF THE VIEWS
-$v = new LoginView();
+$v = new LoginView($loginModel);
 $dtv = new DateTimeView();
 $lv = new LayoutView();
-
-// CREATE OBJECTS OF THE MODELS
-$loginModel = new LoginModel();
-$sessionModel = new SessionModel();
 
 //CREATE OBJECTS OF THE CONTROLLERS
 $loginController = new LoginController($v, $loginModel);
 
-$isLoggedIn = $loginController -> loginUser();
+$isLoggedIn = $loginController -> controlcheck();
 $lv->render($isLoggedIn, $v, $dtv);

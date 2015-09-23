@@ -17,23 +17,38 @@ class LoginController {
         $this -> loginView = $loginView;
         $this -> loginModel = $loginModel;
     }
-
+    public function controlcheck(){
+          if(!$this->loginModel->loggedinUser() && $this->loginView->didUserPressLogin()){
+              
+              $this->loginUser();
+          }
+          elseif($this->loginModel->loggedinUser() && $this->loginView->didUserPressLogout()){
+              
+              $this->logOutUser();
+          }
+          return $this->loginModel->loggedinUser();
+    }
     public function loginUser() {
+        // Get user input if user pressed 'login'.                
+        $user = $this -> loginView -> getUser();
         
-        // Get user input if user pressed 'login'.
-        if ($this -> loginView -> didUserPressLogin()) {
-            
-            try {
-
-                $user = $this -> loginView -> getUser();
-                // Validate user's username/password in 'loginModel' and return true/false.
-                return $this -> loginModel -> validateUserInput($user);
+        try {
+            if($user != null){
+                $this -> loginModel -> validateUserInput($user);
                 
-            } catch (\Exception $e) {
-
-                echo $e -> getMessage();
+                $this -> loginView -> setLoginFeedbackMessage();
             }
+  
+        } catch (\Exception $e) {
+                $this -> loginView -> setWrongInputFeedbackMessage();
         }
+    }
+    
+    public function logOutUser() {
+        
+        $this -> loginView -> setLogoutFeedbackMessage();
+        
+        $this -> loginModel -> logoutuser();
     }
     
 }

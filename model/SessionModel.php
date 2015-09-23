@@ -4,7 +4,7 @@
 
 class SessionModel {
     
-    private static $userIsLoggedIn = "SessionModel::UserIsLoggedIn";
+    private static $userSession = "SessionModel::UserSession";
     
     
     public function __construct() {
@@ -12,18 +12,21 @@ class SessionModel {
         session_start();
     }
     
-    public function setLoggedInSession() {
-        
-        $_SESSION[self::$userIsLoggedIn] = true;
+    public function setUserSession() {
+     
+        $_SESSION[self::$userSession] = true;
     }
     
-    public function unsetLoggedInSession() {
+    public function unsetUserSession() {
         
-        unset($_SESSION[self::$userIsLoggedIn]);
+        unset($_SESSION[self::$userSession]);
     }
     
-    public function getLoggedInSession() {
+    public function getUserSession() {
         
-        return $_SESSION[self::$userIsLoggedIn];
+        if(isset($_SESSION[self::$userSession])){
+            return $_SESSION[self::$userSession];
+        }
+            return false;
     }
 }

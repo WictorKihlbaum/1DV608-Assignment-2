@@ -13,25 +13,9 @@ class UserModel {
 
 
     public function __construct($username, $password) {
-
-        // Make sure both username and password are filled in.
-        if (!empty($username)) {
-
-            $this -> username = $username;
-
-        } else {
-
-            throw new \Exception("Username is missing");
-        }
-
-        if (!empty($password)) {
-
-            $this -> password = $password;
-
-        } else {
-
-            throw new \Exception("Password is missing");
-        }
+        
+        $this -> username = $username;
+        $this -> password = $password;
     }
 
     public function getUserName() {

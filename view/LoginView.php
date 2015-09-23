@@ -12,11 +12,17 @@ class LoginView {
 
 	// Messages
 	private static $loginMessage = "Welcome";
-	private static $logoutMessage = "Bye bye";
+	private static $logoutMessage = "Bye bye!";
 	private static $missingUserNameMessage = "Username is missing";
 	private static $missingPasswordMessage = "Password is missing";
 	private static $wrongInputMessage = "Wrong name or password";
 	
+	private $feedbackMessage = "";
+	private $loginModel;
+	
+	public function __construct($loginModel){
+		$this->loginModel = $loginModel;
+	}
 	
 
 	/**
@@ -29,15 +35,17 @@ class LoginView {
 	public function response($isLoggedIn) {
 		
 		$message = "";
-		
-		if ($isLoggedIn) {
+		if($this->loginModel->loggedinUser()){
 			
-			$response = $this -> generateLogoutButtonHTML($message);
-			
-		} else {
-			
-			$response = $this->generateLoginFormHTML($message);
+			$message = $this->getFeedbackMessage();
+			$response = $this -> generateLogoutButtonHTML($message);			
 		}
+		else{
+			
+			$message = $this->getFeedbackMessage();
+			$response = $this->generateLoginFormHTML($message);			
+		}
+
 		
 		return $response;
 	}
@@ -70,7 +78,7 @@ class LoginView {
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this -> getCookieUserName() . '" />
+					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this -> getRequestUserName() . '" />
 
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
@@ -97,64 +105,78 @@ class LoginView {
 	public function getUser() {
 		
 		try {
+			if ($this -> getRequestUserName() == "") {
+
+				throw new \Exception(self::$missingUserNameMessage);
 			
-			if (!$this -> userNameIsSet()) {
-			
-				throw new \Exception(self::$missingUsernameMessage);
-			
-			} else if (!$this -> passwordIsSet) {
-			
+			} else if ($this -> getRequestPassword() == "") {
+
 				throw new \Exception(self::$missingPasswordMessage);
 			}
-			
+
+			return new UserModel($this -> getRequestUserName(), $this -> getRequestPassword());		
+		
 		} catch (\Exception $e) {
 			
-			$this -> message = $e -> getMessage();
+			if ($e -> getMessage() == self::$missingUserNameMessage) {
+				
+				$this -> setFeedbackMessage(self::$missingUserNameMessage);
+				
+			} else if ($e -> getMessage() == self::$missingPasswordMessage) {
+
+				$this -> setFeedbackMessage(self::$missingPasswordMessage);				
+			}
 		}
 		
-		return new UserModel($this -> getRequestUserName(), $this -> getRequestPassword());
+
 	}
 	
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
 	private function getRequestUserName() {
 		//RETURN REQUEST VARIABLE: USERNAME
-		return $_POST[self::$name];
+		if(isset($_POST[self::$name])) {
+			return $_POST[self::$name];
+		}
+		return "";
 	}
 
 	private function getRequestPassword() {
 		//RETURN REQUEST VARIABLE: PASSWORD
-		return $_POST[self::$password];
-	}
-
-	private function getCookieUserName() {
-
-		if (isset($_COOKIE[self::$cookieName])) {
-
-			return $_COOKIE[self::$cookieName];
-
-		} else {
-
-			setcookie(self::$cookieName, $_POST[self::$name], time() + 60 * 60 * 24 * 365);
-			$_COOKIE[self::$cookieName] = $_POST[self::$name];
-
-			return $_GET[self::$name];
+		if(isset($_POST[self::$name])) {
+			return $_POST[self::$password];
 		}
+		return "";
 	}
 
-	private function userNameIsSet() {
-		
-		return isset($_POST[self::$name]);
-	}
-
-	private function passwordIsSet() {
-
-		return isset($_POST[self::$password]);
-	}
-	
 	public function reloadPage() {
 		
 		header('Location: ' . $_SERVER['REQUEST_URI']);
 		exit();
+	}
+	
+	private function setFeedbackMessage($feedbackMessage) {
+		
+		$this -> feedbackMessage = $feedbackMessage;
+	}
+	
+	private function getFeedbackMessage() {
+		
+        return $this -> feedbackMessage;
+	}
+	
+	public function setLoginFeedbackMessage(){
+		
+		$this->setFeedbackMessage(self::$loginMessage);
+	}
+	
+	public function setLogoutFeedbackMessage(){
+		
+		$this->setFeedbackMessage(self::$logoutMessage);
+	}
+	
+	public function setWrongInputFeedbackMessage(){
+		
+		$this->setFeedbackMessage(self::$wrongInputMessage);
 	}
 	
 }
