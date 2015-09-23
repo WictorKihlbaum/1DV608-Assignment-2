@@ -19,12 +19,40 @@ class LoginView {
 	 *
 	 * @return  void BUT writes to standard output and cookies!
 	 */
-	public function response() {
-		$message = '';
+	public function response($isLoggedIn) {
 		
-		$response = $this->generateLoginFormHTML($message);
+		$message = $this -> setMessage();
+		
+		if ($isLoggedIn) {
+			
+			$message = "Welcome";
+			$response = $this -> generateLogoutButtonHTML($message);
+			
+		} else {
+			
+			$response = $this->generateLoginFormHTML($message);
+		}
+		
+		//$response = $this->generateLoginFormHTML($message);
 		//$response .= $this->generateLogoutButtonHTML($message);
 		return $response;
+	}
+	
+	private function setMessage() {
+		
+		if ($this -> didUserPressLogin()) {
+			
+			if (!$_POST[self::$name] && !$_POST[self::$password] || 
+				!$_POST[self::$name] && $_POST[self::$password]) {
+				
+				return "Username is missing";
+				
+			} else if ($_POST[self::$name] && !$_POST[self::$password]) {
+				
+				return "Password is missing";
+				
+			} 
+		}
 	}
 
 	/**
@@ -47,30 +75,6 @@ class LoginView {
 	* @return  void, BUT writes to standard output!
 	*/
 	private function generateLoginFormHTML($message) {
-		
-		if ($this -> didUserPressLogin()) {
-			
-			if (!$_POST[self::$name] && !$_POST[self::$password] || 
-				!$_POST[self::$name] && $_POST[self::$password]) {
-				
-				$message = "Username is missing";
-				
-			} else if ($_POST[self::$name] && !$_POST[self::$password]) {
-				
-				$message = "Password is missing";
-				
-			} else {
-				
-				$message = "Welcome";
-			}
-			
-		} else if (isset($_SESSION[$messageId])) {
-			
-			$message = "" . $_SESSION[$messageId];
-			unset($_SESSION[$messageId]);
-		}
-		
-		//var_dump($_POST[self::$name]);
 
 		return '
 			<form method="post" > 

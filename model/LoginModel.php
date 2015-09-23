@@ -21,6 +21,7 @@ class LoginModel {
 
         } else {
 
+            throw new \Exception("Wrong name or password");
             return false;
         }
     }

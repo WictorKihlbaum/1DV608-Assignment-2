@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 //INCLUDE THE FILES NEEDED...
 
 // Views.
@@ -29,5 +31,5 @@ $loginModel = new LoginModel();
 //CREATE OBJECTS OF THE CONTROLLERS
 $loginController = new LoginController($v, $loginModel);
 
-$isUserLoggedIn = $loginController -> loginUser();
-$lv->render($isUserLoggedIn, $v, $dtv);
+$isLoggedIn = $loginController -> loginUser();
+$lv->render($isLoggedIn, $v, $dtv);
