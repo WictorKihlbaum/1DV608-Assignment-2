@@ -1,6 +1,7 @@
 <?php
 
 class LoginView {
+	
 	private static $login = 'LoginView::Login';
 	private static $logout = 'LoginView::Logout';
 	private static $name = 'LoginView::UserName';
@@ -10,7 +11,7 @@ class LoginView {
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
 
-	// Messages
+	// Feedback messages.
 	private static $loginMessage = "Welcome";
 	private static $logoutMessage = "Bye bye!";
 	private static $missingUserNameMessage = "Username is missing";
@@ -20,11 +21,12 @@ class LoginView {
 	private $feedbackMessage = "";
 	private $loginModel;
 	
+	
 	public function __construct($loginModel){
-		$this->loginModel = $loginModel;
+		
+		$this -> loginModel = $loginModel;
 	}
 	
-
 	/**
 	 * Create HTTP response
 	 *
@@ -35,18 +37,18 @@ class LoginView {
 	public function response($isLoggedIn) {
 		
 		$message = "";
-		if($this->loginModel->loggedinUser()){
+		/* Whether user is/gets logged in or not, present fitting feedback message and render correct HTML-code.*/
+		if ($this -> loginModel -> loggedInUser()) { 
 			
-			$message = $this->getFeedbackMessage();
-			$response = $this -> generateLogoutButtonHTML($message);			
-		}
-		else{
+			$message = $this -> getFeedbackMessage();
+			$response = $this -> generateLogoutButtonHTML($message);
 			
-			$message = $this->getFeedbackMessage();
-			$response = $this->generateLoginFormHTML($message);			
+		} else {
+			
+			$message = $this -> getFeedbackMessage();
+			$response = $this -> generateLoginFormHTML($message);			
 		}
 
-		
 		return $response;
 	}
 
@@ -56,6 +58,7 @@ class LoginView {
 	* @return  void, BUT writes to standard output!
 	*/
 	private function generateLogoutButtonHTML($message) {
+		
 		return '
 			<form  method="post" >
 				<p id="' . self::$messageId . '">' . $message .'</p>
@@ -104,7 +107,8 @@ class LoginView {
 
 	public function getUser() {
 		
-		try {
+		try { // If one or the other of the two input fields are empty throw an exception describing what's wrong...
+			
 			if ($this -> getRequestUserName() == "") {
 
 				throw new \Exception(self::$missingUserNameMessage);
@@ -113,10 +117,10 @@ class LoginView {
 
 				throw new \Exception(self::$missingPasswordMessage);
 			}
-
+			// ...return user if everything is typed in correctly.
 			return new UserModel($this -> getRequestUserName(), $this -> getRequestPassword());		
 		
-		} catch (\Exception $e) {
+		} catch (\Exception $e) { // Double-check which exception-message was thrown and set it to feedback message.
 			
 			if ($e -> getMessage() == self::$missingUserNameMessage) {
 				
@@ -127,24 +131,26 @@ class LoginView {
 				$this -> setFeedbackMessage(self::$missingPasswordMessage);				
 			}
 		}
-		
-
 	}
 	
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
 	private function getRequestUserName() {
 		//RETURN REQUEST VARIABLE: USERNAME
-		if(isset($_POST[self::$name])) {
+		if (isset($_POST[self::$name])) {
+			
 			return $_POST[self::$name];
 		}
+		
 		return "";
 	}
 
 	private function getRequestPassword() {
 		//RETURN REQUEST VARIABLE: PASSWORD
-		if(isset($_POST[self::$name])) {
+		if (isset($_POST[self::$name])) {
+			
 			return $_POST[self::$password];
 		}
+		
 		return "";
 	}
 
@@ -164,19 +170,19 @@ class LoginView {
         return $this -> feedbackMessage;
 	}
 	
-	public function setLoginFeedbackMessage(){
+	public function setLoginFeedbackMessage() {
 		
-		$this->setFeedbackMessage(self::$loginMessage);
+		$this -> setFeedbackMessage(self::$loginMessage);
 	}
 	
-	public function setLogoutFeedbackMessage(){
+	public function setLogoutFeedbackMessage() {
 		
-		$this->setFeedbackMessage(self::$logoutMessage);
+		$this -> setFeedbackMessage(self::$logoutMessage);
 	}
 	
-	public function setWrongInputFeedbackMessage(){
+	public function setWrongInputFeedbackMessage() {
 		
-		$this->setFeedbackMessage(self::$wrongInputMessage);
+		$this -> setFeedbackMessage(self::$wrongInputMessage);
 	}
 	
 }

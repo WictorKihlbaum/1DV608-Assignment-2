@@ -10,6 +10,7 @@ class LoginModel {
 
     private $sessionModel;
     
+    // These two variables will act as stored database values for an already registered user.
     private $registeredUserName = "Admin";
     private $registeredPassword = "Password";
     
@@ -20,20 +21,24 @@ class LoginModel {
     }
 
     public function validateUserInput($user) {
-        
-        if($this -> registeredUserName !== $user -> getUserName() || $this -> registeredPassword !== $user -> getPassword()) {
+        // Validate user input and throw an exception if one doesn't match.
+        if ($this -> registeredUserName !== $user -> getUserName() || 
+            $this -> registeredPassword !== $user -> getPassword()) {
             
             throw new \Exception("Wrong name or password");
         }           
+        // If correct user input create session.
         $this -> sessionModel -> setUserSession();
     }
-    public function logoutuser(){
-        
-        $this->sessionModel->unsetUserSession();
+    
+    public function logoutUser() {
+        // Remove user-session when user is being logged out.
+        $this -> sessionModel -> unsetUserSession();
     }
-    public function loggedinUser(){
-        
-        return $this->sessionModel->getUserSession();
+    
+    public function loggedInUser() {
+        // Return session for user.
+        return $this -> sessionModel -> getUserSession();
     }
     
 }

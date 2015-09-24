@@ -31,5 +31,7 @@ $lv = new LayoutView();
 //CREATE OBJECTS OF THE CONTROLLERS
 $loginController = new LoginController($v, $loginModel);
 
-$isLoggedIn = $loginController -> controlcheck();
-$lv->render($isLoggedIn, $v, $dtv);
+// Verify whether user is logged in or not.
+$isLoggedIn = $loginController -> verifyUserState();
+// Render page.
+$lv -> render($isLoggedIn, $v, $dtv);

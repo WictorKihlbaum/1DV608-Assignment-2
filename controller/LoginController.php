@@ -17,38 +17,45 @@ class LoginController {
         $this -> loginView = $loginView;
         $this -> loginModel = $loginModel;
     }
-    public function controlcheck(){
-          if(!$this->loginModel->loggedinUser() && $this->loginView->didUserPressLogin()){
+    
+    public function verifyUserState() {
+        // If user's not already logged in - log in user.
+        if (!$this -> loginModel -> loggedInUser() && 
+            $this -> loginView -> didUserPressLogin()) {
               
-              $this->loginUser();
-          }
-          elseif($this->loginModel->loggedinUser() && $this->loginView->didUserPressLogout()){
+              $this -> loginUser();
+        // If user pressed logout while logged in - log out user.
+        } else if ($this -> loginModel -> loggedInUser() && 
+                   $this -> loginView -> didUserPressLogout()) {
               
-              $this->logOutUser();
-          }
-          return $this->loginModel->loggedinUser();
+              $this -> logOutUser();
+        }
+        // Return session for user.
+        return $this -> loginModel -> loggedInUser();
     }
+    
     public function loginUser() {
-        // Get user input if user pressed 'login'.                
+        // Get user object containing the posted form inputs (username/password).
         $user = $this -> loginView -> getUser();
         
-        try {
-            if($user != null){
-                $this -> loginModel -> validateUserInput($user);
+        try { // Validate user input and set feedback message thereafter.
+            
+            if ($user != null) {
                 
+                $this -> loginModel -> validateUserInput($user);
                 $this -> loginView -> setLoginFeedbackMessage();
             }
   
         } catch (\Exception $e) {
-                $this -> loginView -> setWrongInputFeedbackMessage();
+            
+            $this -> loginView -> setWrongInputFeedbackMessage();
         }
     }
     
     public function logOutUser() {
-        
+        // Logout user and set/present feedback message.
         $this -> loginView -> setLogoutFeedbackMessage();
-        
-        $this -> loginModel -> logoutuser();
+        $this -> loginModel -> logoutUser();
     }
     
 }
